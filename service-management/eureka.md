@@ -24,3 +24,10 @@
 
 #### 源码分析
 1. 客户端用@EnableDiscoveryClient注解来开启DiscoveryClient实例，这个实例引用了EurekaClient的实例类DiscoveryClient类。
+2. 服务端用@EnableEurekaServer注解来启动
+3. @EnableDiscoveryClient和@EnableEurekaCilent区别：注册中心是eureka则两者都能用，如果是其他注册中心，只能用前者。前者实现基于spring-cloud-commons,后者实现基于spring-cloud-netflix。
+4. spring boot的加载，可以从META-INFO/spring.factories文件着手。
+
+**@EnableDiscoveryClient注解原理是什么？**
+
+1.
