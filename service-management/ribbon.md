@@ -19,3 +19,10 @@
 3. 里氏替换原则：在对象 x 为类型 T 时 q(x) 成立，那么当 S 是 T 的子类时，对象 y 为类型 S 时 q(y) 也应成立。（即对父类的调用同样适用于子类）
 4. 依赖倒置原则：高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。具体实现应该依赖于抽象，而不是抽象依赖于实现。
 5. 接口隔离原则：不应强迫客户端实现一个它用不上的接口，或是说客户端不应该被迫依赖它们不使用的方法，使用多个专门的接口比使用单个接口要好的多！
+
+3月21日
+#### restTemplate是如何使用ribbon负载均衡的？
+1. 创建restTemplate的方法中用@LoadBalanced注解，这个注解用来给RestTemplate标记，以使用负载均衡的客户端（LoadBalancerClient）来配置它
+2. 当一个被@LoadBalanced注解修饰的RestTemplate对象向外发起HTTP请求时，会被LoadBalancerInterceptor类的intercept函数所拦截。由于我们在使用RestTemplate时候采用了服务名作为host，所以直接从HttpRequest的URI对象中通过getHost()就可以拿到服务名，然后调用execute函数去根据服务名来选择实例并发起实际的请求。
+3. RibbonClientConfiguration配置类默认采用ZoneAvoidanceRule来实现负载均衡器。
+4. LoadBalancerAutoConfiguration配置了
